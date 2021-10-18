@@ -16,5 +16,21 @@ namespace IoToaster_App.Views
         {
             InitializeComponent();
         }
+
+        private void StartStopButton_Clicked(object sender, EventArgs e)
+        {
+            if (StartStopButton.Text.Equals("Start Cooking"))
+            {
+                StartStopButton.Text = "Stop Cooking";
+                StartStopButton.BackgroundColor = Color.Red;
+            }
+            else
+            {
+                StartStopButton.BackgroundColor = Color.Green;
+                StartStopButton.Text = "Start Cooking";
+            }
+
+
+        }
     }
 }
