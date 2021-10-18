@@ -1,8 +1,4 @@
-﻿using IoToaster_App.Services;
-using IoToaster_App.Views;
-using System;
-using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
+﻿using Xamarin.Forms;
 
 namespace IoToaster_App
 {
@@ -13,7 +9,7 @@ namespace IoToaster_App
         {
             InitializeComponent();
 
-            DependencyService.Register<MockDataStore>();
+            
             MainPage = new AppShell();
         }
 
