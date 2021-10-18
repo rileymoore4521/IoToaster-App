@@ -3,43 +3,50 @@
     xmlns="http://xamarin.com/schemas/2014/forms"   
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"  
     x:Class="IoToaster_App.Views.IoToasterHomePage"
-    BackgroundColor="White">
+    BackgroundColor="{StaticResource Dark Theme}">
   
     <ContentPage.Content>
         <Grid RowDefinitions="*,*,*,*">
             <Label 
                 Grid.Row="0"
-                BackgroundColor="White"
+                BackgroundColor="{StaticResource Dark Theme}"
                 Text="Cooking Preset Name"
                 FontSize="Large"
                 FontAttributes="Bold"
+                TextColor="{StaticResource Dark Theme Text}"
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
          
             <Label  
                 Grid.Row="1" 
-                BackgroundColor="White"
+                BackgroundColor="{StaticResource Dark Theme}"
                     Text="Time Remaining"
                     FontSize="Large"
                     FontAttributes="Bold"
                     VerticalOptions="CenterAndExpand" 
                     HorizontalOptions="CenterAndExpand" 
+                TextColor="{StaticResource Dark Theme Text}"
                     />
             <Label 
                 Grid.Row="2"
-                    BackgroundColor="White"
+                    BackgroundColor="{StaticResource Dark Theme}"
                     Text="Temperature"
                     FontSize="Large"
                     FontAttributes="Bold"
                     VerticalOptions="CenterAndExpand" 
                     HorizontalOptions="CenterAndExpand" 
+                TextColor="{StaticResource Dark Theme Text}"
                    />
             <Button 
                 x:Name="StartStopButton"
                 Clicked="StartStopButton_Clicked"
                 Grid.Row="3"
                 BackgroundColor="Red"
-                Text="Stop Cooking"/>
+                Text="Stop Cooking"
+                FontSize="Large"
+                FontAttributes="Bold"
+                
+                />
         </Grid>
     </ContentPage.Content>
 </ContentPage>

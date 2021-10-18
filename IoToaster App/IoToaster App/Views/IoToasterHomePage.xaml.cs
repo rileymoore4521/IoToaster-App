@@ -23,11 +23,13 @@ namespace IoToaster_App.Views
             {
                 StartStopButton.Text = "Stop Cooking";
                 StartStopButton.BackgroundColor = Color.Red;
+                //add in function call to PI to stop toaster
             }
             else
             {
                 StartStopButton.BackgroundColor = Color.Green;
                 StartStopButton.Text = "Start Cooking";
+                //add in function call to PI to stop toaster.
             }
 
 
