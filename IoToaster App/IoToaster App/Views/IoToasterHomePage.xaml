@@ -1,17 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage 
     xmlns="http://xamarin.com/schemas/2014/forms"   
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"  
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:viewmodels="clr-namespace:IoToaster_App.ViewModels"
     x:Class="IoToaster_App.Views.IoToasterHomePage"
-    BackgroundColor="{StaticResource Dark Theme}">
-  
+    BackgroundColor="{StaticResource Dark Theme}"
+    x:DataType="viewmodels:IoToasterViewModel">
+    <ContentPage.BindingContext>
+        <viewmodels:IoToasterViewModel/>
+    </ContentPage.BindingContext>
     <ContentPage.Content>
         <Grid RowDefinitions="*,*,*,*">
             <Label 
                 x:Name="PresetField"
                 Grid.Row="0"
                 BackgroundColor="{StaticResource Dark Theme}"
-                Text="Cooking Preset"
+                Text="{Binding CookingPresetDisplay}"
                 FontSize="Large"
                 FontAttributes="Bold"
                 TextColor="{StaticResource Dark Theme Text}"
@@ -40,11 +43,11 @@
                 TextColor="{StaticResource Dark Theme Text}"
                    />
             <Button 
-                x:Name="StartStopButton"
-                Clicked="StartStopButton_Clicked"
+            
+                Command="{Binding IncreaseCount}"
                 Grid.Row="3"
-                BackgroundColor="Red"
-                Text="Stop Cooking"
+                BackgroundColor="{Binding CookingStateDisplayBackgroundColor}"
+                Text="{Binding CookingStateDisplay}"
                 FontSize="Large"
                 FontAttributes="Bold"
                 
