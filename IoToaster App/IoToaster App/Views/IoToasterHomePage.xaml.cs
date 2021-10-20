@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IoToaster_App.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,6 +18,34 @@ namespace IoToaster_App.Views
             InitializeComponent();
 
         }
-   
+
+        private async void ListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            var cookingPreset = ((ListView)sender).SelectedItem as CookingPreset;
+            if (cookingPreset == null)
+                return;
+
+            await DisplayAlert("Cooking Preset Selected", cookingPreset.Name,"Ok");
+        }
+
+        private void ListView_ItemTapped(object sender, ItemTappedEventArgs e)
+        {
+            ((ListView)sender).SelectedItem = null;
+        }
+
+        private async void MenuItem_Clicked(object sender, EventArgs e)
+        {
+            var cookingPreset = ((MenuItem)sender).BindingContext as CookingPreset;
+            if (cookingPreset == null)
+                return;
+
+            await DisplayAlert("Cooking Started on:", cookingPreset.Name, "Ok");
+
+        }
+
+        private void MenuItem_Clicked_1(object sender, EventArgs e)
+        {
+
+        }
     }
 }

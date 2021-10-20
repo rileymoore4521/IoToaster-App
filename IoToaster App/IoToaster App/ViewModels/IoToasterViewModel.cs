@@ -1,16 +1,49 @@
-﻿using System;
+﻿using IoToaster_App.Models;
+using MvvmHelpers;
+using MvvmHelpers.Commands;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Drawing;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Input;
-using Xamarin.Forms;
+
 
 namespace IoToaster_App.ViewModels
 {
-    class IoToasterViewModel : BindableObject
+    class IoToasterViewModel : ViewModelBase
     {
+        public ObservableRangeCollection<CookingPreset> CookingPresets { get; set; }
+
+        public ObservableRangeCollection<Grouping<string,CookingPreset>> CookingPresetsGroups { get; set; }
+
+        public AsyncCommand RefreshCommand { get; }
         public IoToasterViewModel()
         {
-            IncreaseCount = new Command(OnIncrease);
+            Title = "IoToaster App";
+
+            CookingPresets = new ObservableRangeCollection<CookingPreset>();
+            CookingPresetsGroups = new ObservableRangeCollection<Grouping<string, CookingPreset>>();
+
+            CookingPresets.Add(new CookingPreset { Name = "Everything Bagel", Temperature = 50, ToastDuration = 1 });
+            CookingPresets.Add(new CookingPreset { Name = "Plain Bagel", Temperature = 50, ToastDuration = 1.5 });
+            CookingPresets.Add(new CookingPreset { Name = "English Muffin", Temperature = 50, ToastDuration = 2 });
+
+            CookingPresetsGroups.Add(new Grouping<string, CookingPreset>("English Muffin", new[] {CookingPresets.Last()}));
+            CookingPresetsGroups.Add(new Grouping<string, CookingPreset>("Bagel", CookingPresets.Take(2)));
+
+            RefreshCommand = new AsyncCommand(Refresh);
+
+        }
+
+  
+        async Task Refresh()
+        {
+            IsBusy = true;
+            await Task.Delay(2000);
+            IsBusy = false;
         }
         public ICommand IncreaseCount { get; }
         int count = 0;

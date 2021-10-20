@@ -1,57 +1,85 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage 
     xmlns="http://xamarin.com/schemas/2014/forms"   
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:viewmodels="clr-namespace:IoToaster_App.ViewModels"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+    xmlns:viewmodels="clr-namespace:IoToaster_App.ViewModels" xmlns:model="clr-namespace:IoToaster_App.Models"
+
+    
     x:Class="IoToaster_App.Views.IoToasterHomePage"
     BackgroundColor="{StaticResource Dark Theme}"
     x:DataType="viewmodels:IoToasterViewModel">
     <ContentPage.BindingContext>
         <viewmodels:IoToasterViewModel/>
     </ContentPage.BindingContext>
-    <ContentPage.Content>
-        <Grid RowDefinitions="*,*,*,*">
-            <Label 
-                x:Name="PresetField"
-                Grid.Row="0"
-                BackgroundColor="{StaticResource Dark Theme}"
-                Text="{Binding CookingPresetDisplay}"
-                FontSize="Large"
-                FontAttributes="Bold"
-                TextColor="{StaticResource Dark Theme Text}"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-         
-            <Label  
-                Grid.Row="1" 
-                BackgroundColor="{StaticResource Dark Theme}"
-                    Text="{Binding TimeRemainingDisplay}"
-                    FontSize="Large"
-                    FontAttributes="Bold"
-                    VerticalOptions="CenterAndExpand" 
-                    HorizontalOptions="CenterAndExpand" 
-                TextColor="{StaticResource Dark Theme Text}"
-                    />
-            <Label 
-                Grid.Row="2"
-                    x:Name="TempField"
-                    BackgroundColor="{StaticResource Dark Theme}"
-                    Text="{Binding TemperatureDisplay}"
-                    FontSize="Large"
-                    FontAttributes="Bold"
-                    VerticalOptions="CenterAndExpand" 
-                    HorizontalOptions="CenterAndExpand" 
-                TextColor="{StaticResource Dark Theme Text}"
-                   />
-            <Button 
-            
-                Command="{Binding IncreaseCount}"
-                Grid.Row="3"
-                BackgroundColor="{Binding CookingStateDisplayBackgroundColor}"
-                Text="{Binding CookingStateDisplay}"
-                FontSize="Large"
-                FontAttributes="Bold"
-                
-                />
-        </Grid>
-    </ContentPage.Content>
+    <ListView ItemSelected="ListView_ItemSelected"
+              ItemTapped="ListView_ItemTapped"
+              CachingStrategy="RecycleElement"
+              BackgroundColor="Transparent"
+              ItemsSource="{Binding CookingPresetsGroups}"
+              IsGroupingEnabled="True"
+              GroupDisplayBinding="{Binding Key}"
+              HasUnevenRows="True"
+              SeparatorVisibility="None"
+              SeparatorColor="Black"
+              IsPullToRefreshEnabled="True"
+              IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+              RefreshCommand="{Binding RefreshCommand}"
+              RefreshControlColor="Black">
+      
+        <ListView.ItemTemplate>
+            <DataTemplate x:DataType="model:CookingPreset">
+                <ViewCell>
+                    <ViewCell.ContextActions>
+                        <MenuItem Text="Start Cooking" Clicked="MenuItem_Clicked"/>
+                        <MenuItem Text="Delete" IsDestructive="True" Clicked="MenuItem_Clicked_1"/>
+                    </ViewCell.ContextActions>
+                    <Grid Padding="10"
+                          >
+                        <Frame CornerRadius="20"
+                               HasShadow="True"
+                               BackgroundColor="{StaticResource Dark Theme}"
+                               BorderColor="Black"
+                               >
+                            <StackLayout
+                                BackgroundColor="{StaticResource Dark Theme}">
+                              
+                        <Label 
+                        x:Name="PresetField"
+                        
+                        BackgroundColor="Transparent"
+                        Text="{Binding Name}"
+                        FontSize="Large"
+                        FontAttributes="Bold"
+                        TextColor="{StaticResource Dark Theme Text}"
+                        VerticalOptions="Center" 
+                        HorizontalOptions="Center" />
+
+                        <Label  
+                        
+                        BackgroundColor="Transparent"
+                        Text="{Binding ToastDuration}"
+                        FontSize="Large"
+                        FontAttributes="Bold"
+                        VerticalOptions="Center" 
+                        HorizontalOptions="Center" 
+                        TextColor="{StaticResource Dark Theme Text}"
+                          />
+                        <Label 
+                       
+                        x:Name="TempField"
+                        BackgroundColor="Transparent"
+                        Text="{Binding Temperature}"
+                        FontSize="Large"
+                        FontAttributes="Bold"
+                        VerticalOptions="Center" 
+                        HorizontalOptions="Center" 
+                        TextColor="{StaticResource Dark Theme Text}"
+                          />
+                            </StackLayout>
+                        </Frame>
+                    </Grid>
+                </ViewCell>
+            </DataTemplate>
+        </ListView.ItemTemplate>
+    </ListView>
 </ContentPage>
