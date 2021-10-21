@@ -3,20 +3,20 @@
     xmlns="http://xamarin.com/schemas/2014/forms"   
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
     xmlns:viewmodels="clr-namespace:IoToaster_App.ViewModels" xmlns:model="clr-namespace:IoToaster_App.Models"
-
-    
     x:Class="IoToaster_App.Views.IoToasterHomePage"
     BackgroundColor="{StaticResource Dark Theme}"
-    x:DataType="viewmodels:IoToasterViewModel">
+    x:DataType="viewmodels:IoToasterViewModel"
+    x:Name="IoToasterPage">
     <ContentPage.BindingContext>
         <viewmodels:IoToasterViewModel/>
     </ContentPage.BindingContext>
-    <ListView ItemSelected="ListView_ItemSelected"
-              ItemTapped="ListView_ItemTapped"
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Add" Command="{Binding AddCommand}"/>
+    </ContentPage.ToolbarItems>
+    <ListView SelectedItem="{Binding SelectedCookingPreset, Mode=TwoWay}"
               CachingStrategy="RecycleElement"
               BackgroundColor="Transparent"
-              ItemsSource="{Binding CookingPresetsGroups}"
-              IsGroupingEnabled="True"
+              ItemsSource="{Binding CookingPresets}"
               GroupDisplayBinding="{Binding Key}"
               HasUnevenRows="True"
               SeparatorVisibility="None"
@@ -30,8 +30,15 @@
             <DataTemplate x:DataType="model:CookingPreset">
                 <ViewCell>
                     <ViewCell.ContextActions>
-                        <MenuItem Text="Start Cooking" Clicked="MenuItem_Clicked"/>
-                        <MenuItem Text="Delete" IsDestructive="True" Clicked="MenuItem_Clicked_1"/>
+                        <MenuItem Text="Start Cooking" Command="{Binding 
+                            Source={x:Reference IoToasterPage},
+                            Path=BindingContext.StartCookingCommand}"
+                            CommandParameter="{Binding .}"
+                                  />
+                        <MenuItem Text="Delete" IsDestructive="True" 
+                            Command="{Binding Source={x:Reference IoToasterPage},
+                            Path=BindingContext.RemoveCommand}"
+                            CommandParameter="{Binding .}"/>
                     </ViewCell.ContextActions>
                     <Grid Padding="10"
                           >
@@ -41,9 +48,11 @@
                                BorderColor="Black"
                                >
                             <StackLayout
-                                BackgroundColor="{StaticResource Dark Theme}">
-                              
-                        <Label 
+                                BackgroundColor="{StaticResource Dark Theme}"
+                                Orientation="Horizontal">
+                                <StackLayout>
+
+                                    <Label 
                         x:Name="PresetField"
                         
                         BackgroundColor="Transparent"
@@ -54,7 +63,7 @@
                         VerticalOptions="Center" 
                         HorizontalOptions="Center" />
 
-                        <Label  
+                                    <Label  
                         
                         BackgroundColor="Transparent"
                         Text="{Binding ToastDuration}"
@@ -64,7 +73,7 @@
                         HorizontalOptions="Center" 
                         TextColor="{StaticResource Dark Theme Text}"
                           />
-                        <Label 
+                                    <Label 
                        
                         x:Name="TempField"
                         BackgroundColor="Transparent"
@@ -75,7 +84,24 @@
                         HorizontalOptions="Center" 
                         TextColor="{StaticResource Dark Theme Text}"
                           />
+                                </StackLayout>
+                                <Button
+                       
+                         Command="{Binding
+                                    Source={RelativeSource
+                                    AncestorType={x:Type viewmodels:IoToasterViewModel}},
+                                    Path=StartCookingCommand}"
+                                    CommandParameter="{Binding .}"
+                                BackgroundColor="Green"
+                         Text="Start Cooking"
+                         FontSize="Large"
+                         FontAttributes="Bold"
+                         VerticalOptions="Center"
+                         HorizontalOptions="End"
+                         TextColor="{StaticResource Dark Theme Text}"
+                            />
                             </StackLayout>
+                            
                         </Frame>
                     </Grid>
                 </ViewCell>
