@@ -151,7 +151,7 @@ namespace IoToaster_App.ViewModels
             var cookingPresets = await InternetCookingPresetService.GetCookingPresets();
 
             CookingPresets.AddRange(cookingPresets);
-
+           
             IsBusy = false;
         }
        
