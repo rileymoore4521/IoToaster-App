@@ -72,12 +72,12 @@ namespace IoToaster_App.ViewModels
             var toastDuration = await App.Current.MainPage.DisplayPromptAsync("Toast Duration", "The duration the item will be toasted");
             var temperature = await App.Current.MainPage.DisplayPromptAsync("Temperature", "The Temperature to cook the item at");
             
-            await CookingPresetService.AddCookingPreset(name, Convert.ToDouble(toastDuration), Convert.ToInt32(temperature));
+            await InternetCookingPresetService.AddCookingPreset(name, Convert.ToInt32(toastDuration), Convert.ToInt32(temperature));
             await Refresh();
         }
         async Task Remove(CookingPreset cookingPreset)
         {
-            await CookingPresetService.RemoveCookingPreset(cookingPreset.Id);
+            await InternetCookingPresetService.RemoveCookingPreset(cookingPreset._id);
             await Refresh();
         }
         async Task Refresh()
@@ -87,7 +87,7 @@ namespace IoToaster_App.ViewModels
 
             CookingPresets.Clear();
 
-            var cookingPresets = await CookingPresetService.GetCookingPresets();
+            var cookingPresets = await InternetCookingPresetService.GetCookingPresets();
 
             CookingPresets.AddRange(cookingPresets);
 

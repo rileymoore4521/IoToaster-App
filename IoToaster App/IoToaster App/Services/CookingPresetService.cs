@@ -27,7 +27,7 @@ namespace IoToaster_App.Services
             await db.CreateTableAsync<CookingPreset>();
         }
 
-        public static async Task AddCookingPreset(string name, double toastDuration, int temperature)
+        public static async Task AddCookingPreset(string name, int toastDuration, int temperature)
         {
             await Init();
             var cookingPreset = new CookingPreset
