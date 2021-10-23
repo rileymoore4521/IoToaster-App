@@ -29,16 +29,15 @@
         <ListView.ItemTemplate>
             <DataTemplate x:DataType="model:CookingPreset">
                 <ViewCell>
-                    <ViewCell.ContextActions>
-                        <MenuItem Text="Start Cooking" Command="{Binding 
-                            Source={x:Reference IoToasterPage},
-                            Path=BindingContext.StartCookingCommand}"
-                            CommandParameter="{Binding .}"
-                                  />
+                    <ViewCell.ContextActions>                    
                         <MenuItem Text="Delete" IsDestructive="True" 
                             Command="{Binding Source={x:Reference IoToasterPage},
                             Path=BindingContext.RemoveCommand}"
                             CommandParameter="{Binding .}"/>
+                        <MenuItem Text="Edit"
+                                  Command="{Binding Source={x:Reference IoToasterPage},
+                                  Path=BindingContext.EditCommand}"
+                                  CommandParameter="{Binding .}"/>
                     </ViewCell.ContextActions>
                     <Grid Padding="10"
                           >
@@ -92,8 +91,14 @@
                                     AncestorType={x:Type viewmodels:IoToasterViewModel}},
                                     Path=StartCookingCommand}"
                                     CommandParameter="{Binding .}"
-                                BackgroundColor="Green"
-                         Text="Start Cooking"
+                                    BackgroundColor="{Binding
+                                    Source={RelativeSource
+                                    AncestorType={x:Type viewmodels:IoToasterViewModel}},
+                                    Path=CookingButtonBgColor}"
+                         Text="{Binding
+                                    Source={RelativeSource
+                                    AncestorType={x:Type viewmodels:IoToasterViewModel}},
+                                    Path=CookingButtonText}"
                          FontSize="Large"
                          FontAttributes="Bold"
                          VerticalOptions="Center"
