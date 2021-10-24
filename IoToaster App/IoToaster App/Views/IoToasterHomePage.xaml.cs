@@ -1,4 +1,5 @@
 ﻿using IoToaster_App.Models;
+using IoToaster_App.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +17,7 @@ namespace IoToaster_App.Views
         public IoToasterHomePage()
         {
             InitializeComponent();
+            
 
         }
 
@@ -47,5 +49,6 @@ namespace IoToaster_App.Views
         {
 
         }
+ 
     }
 }

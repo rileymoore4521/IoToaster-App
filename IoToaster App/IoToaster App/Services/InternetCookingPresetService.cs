@@ -9,6 +9,7 @@ using IoToaster_App.Models;
 
 using Newtonsoft.Json;
 using MvvmHelpers;
+using static IoToaster_App.ViewModels.CookingStatusPageViewModel;
 
 namespace IoToaster_App.Services
 {
@@ -170,11 +171,7 @@ namespace IoToaster_App.Services
 
 
         }
-        public class StatusInfo
-        {
-            public string _id;
-            public string status;
-        }
+        
         public static async Task<IEnumerable<StatusInfo>> getStatusInfo()
         {
             var json = await client.GetStringAsync("data");

@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"   
+             xmlns:mvvm="clr-namespace:MvvmHelpers;assembly=MvvmHelpers"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:viewmodels="clr-namespace:IoToaster_App.ViewModels" xmlns:model="clr-namespace:IoToaster_App.Models"
+             x:Class="IoToaster_App.Views.CookingStatusPage"
+             BackgroundColor="{StaticResource Dark Theme}"
+             x:DataType="viewmodels:CookingStatusPageViewModel"
+             x:Name="CookingStatPage"
+             >
+    <ContentPage.BindingContext>
+        <viewmodels:CookingStatusPageViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        
+                         
+                            <StackLayout>
+          
+                             <Label Text="Cooking Preset"
+                             VerticalOptions="CenterAndExpand" 
+                             HorizontalOptions="CenterAndExpand" />
+                             <Label Text="{Binding Timeremaining }"
+                              VerticalOptions="CenterAndExpand" 
+                             HorizontalOptions="CenterAndExpand" />
+                             <Label Text="{Binding Temperature}"
+                             TextColor="Black"
+                             VerticalOptions="CenterAndExpand" 
+                             HorizontalOptions="CenterAndExpand" />
+                             <Button
+                             Command="{Binding RefreshCommand}"
+                             Text="Stop Cooking"
+                             VerticalOptions="CenterAndExpand" 
+                             HorizontalOptions="CenterAndExpand" />
+                            </StackLayout>
+         
+    </ContentPage.Content>
+</ContentPage>

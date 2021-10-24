@@ -1,5 +1,6 @@
 ﻿using IoToaster_App.Models;
 using IoToaster_App.Services;
+using IoToaster_App.Views;
 using MvvmHelpers;
 using MvvmHelpers.Commands;
 using System;
@@ -33,8 +34,6 @@ namespace IoToaster_App.ViewModels
             Title = "IoToaster App";
 
             CookingPresets = new ObservableRangeCollection<CookingPreset>();
-
-
 
             RefreshCommand = new AsyncCommand(Refresh);
             StartCookingCommand = new AsyncCommand<CookingPreset>(StartCooking);
@@ -78,7 +77,7 @@ namespace IoToaster_App.ViewModels
         
         async Task StartCooking(CookingPreset cookingPreset)
         {
-            
+            /*
             if(cookingPreset != null && !isCooking)
             {
                 isCooking = true;
@@ -93,8 +92,9 @@ namespace IoToaster_App.ViewModels
                 CookingButtonText = "Start Cooking";
                 await InternetCookingPresetService.UpdateCookingStatus(cookingPreset, true);
                 await Xamarin.Forms.Application.Current.MainPage.DisplayAlert("Stopped Cooking", cookingPreset.Name, "OK");
-            }
-            
+            } */
+            var route = $"{nameof(CookingStatusPage)}";
+            await AppShell.Current.GoToAsync(route);
             
 
         }
