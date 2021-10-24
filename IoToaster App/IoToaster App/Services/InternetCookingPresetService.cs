@@ -43,7 +43,12 @@ namespace IoToaster_App.Services
             var cookingPresets = JsonConvert.DeserializeObject<IEnumerable<CookingPreset>>(json);
             return cookingPresets;
         }
-
+        public static async Task<IEnumerable<CookingPreset>> GetCookingPreset(string _Id)
+        {
+            var json = await client.GetStringAsync($"cookingpresets/{_Id}");
+            var cookingPresets = JsonConvert.DeserializeObject<IEnumerable<CookingPreset>>(json);
+            return cookingPresets;
+        }
         public static async Task AddCookingPreset(string name, int toastDuration, int temperature)
         {
 
@@ -171,7 +176,49 @@ namespace IoToaster_App.Services
 
 
         }
-        
+        public static async Task StopCooking(bool stopCooking)
+        {
+            DateTime localDate = DateTime.Now;
+            TimeSpan localTime = localDate.TimeOfDay;
+            localTime = new TimeSpan(localTime.Hours, localTime.Minutes, localTime.Seconds);
+            string updateStr = localTime.ToString();
+            instructionInfo = new ObservableRangeCollection<InstructionInfo>();
+            var Instructioninfo = await GetInstructionInfo();
+            instructionInfo.AddRange(Instructioninfo);
+            string dataId = "";
+            int numOfItems = instructionInfo.Count;
+            if (instructionInfo != null && numOfItems != 0)
+            {
+                dataId = instructionInfo[0]._id;
+
+                if (stopCooking == true)
+                {
+                    updateStr = updateStr + ",Stop Cooking";
+                    instructionInfo[0].phone_instr = updateStr;
+                    var json = JsonConvert.SerializeObject(instructionInfo[0]);
+                    var content = new StringContent(json, Encoding.UTF8, "application/json");
+                    var method = new HttpMethod("PATCH");
+                    var request = new HttpRequestMessage(method, BaseUrl + $"data/{dataId}")
+                    {
+                        Content = content
+                    };
+                    var response = new HttpResponseMessage();
+
+                    try
+                    {
+                        response = await client.SendAsync(request);
+                    }
+                    catch (TaskCanceledException e)
+                    {
+
+                    }
+                    if (!response.IsSuccessStatusCode)
+                    {
+
+                    }
+                }
+            }
+        }
         public static async Task<IEnumerable<StatusInfo>> getStatusInfo()
         {
             var json = await client.GetStringAsync("data");

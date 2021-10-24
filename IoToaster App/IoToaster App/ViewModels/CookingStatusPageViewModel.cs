@@ -11,17 +11,28 @@ using Xamarin.Forms;
 
 namespace IoToaster_App.ViewModels
 {
+ 
+    [QueryProperty(nameof(CookingPresetName), nameof(CookingPresetName))]
+    [QueryProperty(nameof(Temperature), nameof(Temperature))]
+    [QueryProperty(nameof(Timeremaining), nameof(Timeremaining))]
     public class CookingStatusPageViewModel : ViewModelBase
     {
+
+        
+       
+      
+        public ObservableRangeCollection<CookingPreset> cookingPresets { get; set; }
         public AsyncCommand RefreshCommand { get; }
+        public AsyncCommand StopCookingCommand { get; }
         public CookingStats cookingStats = new CookingStats();
         
         public CookingStatusPageViewModel()
         {
             Statusinfo = new ObservableRangeCollection<StatusInfo>();
             RefreshCommand = new AsyncCommand(Refresh);
-            
-            
+            StopCookingCommand = new AsyncCommand(StopCooking);
+            cookingPresets = new ObservableRangeCollection<CookingPreset>();
+
             cookingStats.error = "null";
             Device.StartTimer(new TimeSpan(0, 0, 5), () =>
              {
@@ -32,7 +43,25 @@ namespace IoToaster_App.ViewModels
 
                  return true;
              });
+            
 
+        }
+        public string cookingPresetName = "";
+        public string CookingPresetName
+        {
+            get => cookingPresetName;
+            set
+            {
+                if (value == cookingPresetName)
+                    return;
+
+                cookingPresetName = value;
+                OnPropertyChanged();
+            }
+        }
+        async Task getCookingPreset(string _id)
+        {
+            await InternetCookingPresetService.GetCookingPreset(_id);
         }
         public class StatusInfo
         {
@@ -85,7 +114,13 @@ namespace IoToaster_App.ViewModels
                 OnPropertyChanged();
             }
         }
+        async Task StopCooking()
+        {
+            await InternetCookingPresetService.StopCooking(true);
+            await AppShell.Current.GoToAsync("..");
+            await Xamarin.Forms.Application.Current.MainPage.DisplayAlert("Stopped Cooking", CookingPresetName, "OK");
 
+        }
         async Task getCookingStatus()
         {
             var Stats = await InternetCookingPresetService.getStatusInfo();
@@ -98,10 +133,11 @@ namespace IoToaster_App.ViewModels
             Timestamp = values[0];
             Temperature = values[1];
             Timeremaining = values[2];
-            Error = values[3];
+            Error = values[3].ToLower();
 
              
         }
+        
         async Task Refresh()
         {
             IsBusy = true;

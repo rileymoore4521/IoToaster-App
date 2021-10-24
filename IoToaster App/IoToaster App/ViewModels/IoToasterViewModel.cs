@@ -70,32 +70,13 @@ namespace IoToaster_App.ViewModels
 
             }
         }
-
-
-
-        bool isCooking = false;
         
         async Task StartCooking(CookingPreset cookingPreset)
         {
-            /*
-            if(cookingPreset != null && !isCooking)
-            {
-                isCooking = true;
-                CookingButtonBgColor = Color.Red;
-                CookingButtonText = "Stop Cooking";
-                await InternetCookingPresetService.UpdateCookingStatus(cookingPreset, false);
-                await Xamarin.Forms.Application.Current.MainPage.DisplayAlert("Started Cooking", cookingPreset.Name, "OK");
-            }else if (cookingPreset != null && isCooking)
-            {
-                isCooking = false;
-                CookingButtonBgColor = Color.Green;
-                CookingButtonText = "Start Cooking";
-                await InternetCookingPresetService.UpdateCookingStatus(cookingPreset, true);
-                await Xamarin.Forms.Application.Current.MainPage.DisplayAlert("Stopped Cooking", cookingPreset.Name, "OK");
-            } */
-            var route = $"{nameof(CookingStatusPage)}";
+        
+            await InternetCookingPresetService.UpdateCookingStatus(cookingPreset, false);
+            var route = $"{nameof(CookingStatusPage)}?CookingPresetName={cookingPreset.Name}&Temperature={cookingPreset.Temperature}&Timeremaining={cookingPreset.ToastDuration}";
             await AppShell.Current.GoToAsync(route);
-            
 
         }
        

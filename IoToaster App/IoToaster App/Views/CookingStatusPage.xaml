@@ -15,8 +15,8 @@
         
                          
                             <StackLayout>
-          
-                             <Label Text="Cooking Preset"
+
+                            <Label Text="{Binding CookingPresetName}"
                              VerticalOptions="CenterAndExpand" 
                              HorizontalOptions="CenterAndExpand" />
                              <Label Text="{Binding Timeremaining }"
@@ -27,7 +27,7 @@
                              VerticalOptions="CenterAndExpand" 
                              HorizontalOptions="CenterAndExpand" />
                              <Button
-                             Command="{Binding RefreshCommand}"
+                             Command="{Binding StopCookingCommand}"
                              Text="Stop Cooking"
                              VerticalOptions="CenterAndExpand" 
                              HorizontalOptions="CenterAndExpand" />
