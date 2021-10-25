@@ -16664,13 +16664,16 @@ namespace IoToaster_App.Droid
 			public const int test_custom_background = 2131165327;
 			
 			// aapt resource value: 0x7F070090
-			public const int tooltip_frame_dark = 2131165328;
+			public const int toasterdos = 2131165328;
 			
 			// aapt resource value: 0x7F070091
-			public const int tooltip_frame_light = 2131165329;
+			public const int tooltip_frame_dark = 2131165329;
 			
 			// aapt resource value: 0x7F070092
-			public const int xamarin_logo = 2131165330;
+			public const int tooltip_frame_light = 2131165330;
+			
+			// aapt resource value: 0x7F070093
+			public const int xamarin_logo = 2131165331;
 			
 			static Drawable()
 			{
@@ -18797,6 +18800,9 @@ namespace IoToaster_App.Droid
 			
 			// aapt resource value: 0x7F0C0002
 			public const int launcher_foreground = 2131492866;
+			
+			// aapt resource value: 0x7F0C0003
+			public const int toasterdos = 2131492867;
 			
 			static Mipmap()
 			{
