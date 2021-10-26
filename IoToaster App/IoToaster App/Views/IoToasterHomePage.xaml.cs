@@ -1,4 +1,5 @@
 ﻿using IoToaster_App.Models;
+using IoToaster_App.Services;
 using IoToaster_App.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -49,6 +50,12 @@ namespace IoToaster_App.Views
         {
 
         }
- 
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
+            var vm = (IoToasterViewModel)BindingContext;
+            if (vm.CookingPresets.Count == 0)
+                await vm.RefreshCommand.ExecuteAsync();
+        }
     }
 }
