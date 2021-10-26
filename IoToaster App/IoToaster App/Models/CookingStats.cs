@@ -9,7 +9,7 @@ namespace IoToaster_App.Models
             public string timestamp;
             public string temperature;
             public string timeremaining;
-            public string error;
+            public string cookingstatus;
         
     }
 }

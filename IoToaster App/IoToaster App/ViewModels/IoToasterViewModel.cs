@@ -125,7 +125,8 @@ namespace IoToaster_App.ViewModels
         async Task Refresh()
         {
             IsBusy = true;
-            await Task.Delay(2000);
+
+            await Task.Delay(1000);
 
             CookingPresets.Clear();
 

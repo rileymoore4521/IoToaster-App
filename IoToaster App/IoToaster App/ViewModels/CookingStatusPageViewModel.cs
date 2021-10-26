@@ -33,8 +33,8 @@ namespace IoToaster_App.ViewModels
             StopCookingCommand = new AsyncCommand(StopCooking);
             cookingPresets = new ObservableRangeCollection<CookingPreset>();
 
-            cookingStats.error = "null";
-            Device.StartTimer(new TimeSpan(0, 0, 5), () =>
+          
+            Device.StartTimer(new TimeSpan(0, 0, 2), () =>
              {
                  Device.BeginInvokeOnMainThread(async () =>
                  {
@@ -102,15 +102,14 @@ namespace IoToaster_App.ViewModels
                 OnPropertyChanged();
             }
         }
-        public string Error
+        public string Cookingstatus
         {
-            get => cookingStats.error;
+            get => cookingStats.cookingstatus;
             set
             {
-                if (value == cookingStats.error)
+                if (value == cookingStats.cookingstatus)
                     return;
-                 cookingStats.error = value;
-                Xamarin.Forms.Application.Current.MainPage.DisplayAlert("Error Code:", value, "OK");
+                 cookingStats.cookingstatus = value;
                 OnPropertyChanged();
             }
         }
@@ -133,7 +132,7 @@ namespace IoToaster_App.ViewModels
             Timestamp = values[0];
             Temperature = values[1];
             Timeremaining = values[2];
-            Error = values[3].ToLower();
+            Cookingstatus = values[3].ToLower();
 
              
         }
