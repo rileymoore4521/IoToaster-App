@@ -99,10 +99,14 @@ namespace IoToaster_App.ViewModels
         }
         async Task Add()
         {
+            int toastTime = 0;
             var name = await App.Current.MainPage.DisplayPromptAsync("Name", "The name the preset will be saved under");
-            var toastDuration = await App.Current.MainPage.DisplayPromptAsync("Toast Duration", "The duration the item will be toasted");
-            
-            await InternetCookingPresetService.AddCookingPreset(name, Convert.ToInt32(toastDuration), 0);
+            var toastDuration = await App.Current.MainPage.DisplayPromptAsync("Toast Duration", "The duration the item will be toasted in seconds");
+            while(int.TryParse(toastDuration, out toastTime) == false || toastTime < 0 || toastTime > 180)
+            {
+                toastDuration = await App.Current.MainPage.DisplayPromptAsync("Toast Duration", "The toasting duration you inputted is not valid.\nPlease input a new toast duration in seconds between 0 and 180.");
+            }
+            await InternetCookingPresetService.AddCookingPreset(name, toastTime, 0);
             await Refresh();
         }
         async Task Remove(CookingPreset cookingPreset)
@@ -112,8 +116,13 @@ namespace IoToaster_App.ViewModels
         }
         async Task Edit(CookingPreset cookingPreset)
         {
+            int toastTime = 0;
             var name = await App.Current.MainPage.DisplayPromptAsync("Name", "The name the preset will be saved under");
             var toastDuration = await App.Current.MainPage.DisplayPromptAsync("Toast Duration", "The duration the item will be toasted");
+            while (int.TryParse(toastDuration, out toastTime) == false || toastTime < 0 || toastTime > 180)
+            {
+                toastDuration = await App.Current.MainPage.DisplayPromptAsync("Toast Duration", "The toasting duration you inputted is not valid.\nPlease input a new toast duration in seconds between 0 and 180.");
+            }
             cookingPreset.Name = name;
             cookingPreset.ToastDuration = Convert.ToInt32(toastDuration);
             cookingPreset.Temperature = 0;
