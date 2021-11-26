@@ -72,17 +72,7 @@
                         HorizontalOptions="Center" 
                         TextColor="{StaticResource Dark Theme Text}"
                           />
-                                    <Label 
-                       
-                        x:Name="TempField"
-                        BackgroundColor="Transparent"
-                        Text="{Binding Temperature}"
-                        FontSize="Large"
-                        FontAttributes="Bold"
-                        VerticalOptions="Center" 
-                        HorizontalOptions="Center" 
-                        TextColor="{StaticResource Dark Theme Text}"
-                          />
+
                                 </StackLayout>
                                 <Button
                        
